@@ -1,26 +1,16 @@
-```sh
-# Setup
-$ npm i express
+# typescript-clean-architecture-api
 
-$ npm i -D typescript ts-node @types/node @types/express supertest @types/supertest @types/node jest @types/jest ts-jest
+## Architecture draft
 
 ```
-
-```sh
-$ npx tsc --init
-# Configure in tsconfig.json
-# "outDir": "./dist",
-# "rootDir": "./"
-```
-
-```sh
-# Init Jest
-$ npx ts-jest config:init
-```
-
-```
-# Add scripts in package.json
-"scripts": {
-    "test": "jest --watchAll --collectCoverage",
-}
+├── src
+│  ├── entities
+│  ├── infrastructure
+│  ├── interfaces
+│  │  ├── controllers
+│  │  └── repositories
+│  ├── main.ts
+│  └── use-cases
+├── test
+└── tsconfig.json
 ```
