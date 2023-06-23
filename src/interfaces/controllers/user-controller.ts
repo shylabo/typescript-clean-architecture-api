@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
-import UserRepositoryImpl from '../repositories/user-repository'
+import UserRepositoryImpl from '../gateways/user-repository'
 import UserInteractor from '../../use-cases/user-interactor'
+import { CreateUserInputData } from '../../use-cases/input-data/user-input-data'
 
 class UserController {
   private userRepository: UserRepositoryImpl
@@ -20,8 +21,8 @@ class UserController {
   }
 
   public createUser(req: Request, res: Response): void {
-    const { name, email, password } = req.body
-    const newUser = this.userInteractor.createUser(name, email, password)
+    const inputData: CreateUserInputData = req.body
+    const newUser = this.userInteractor.createUser(inputData)
     res.status(201).json(newUser)
   }
 }

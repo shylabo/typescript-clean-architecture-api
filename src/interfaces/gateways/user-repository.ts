@@ -12,8 +12,13 @@ class UserRepositoryImpl implements UserRepository {
     return this.users
   }
 
-  public create(user: User): void {
-    this.users.push(user)
+  public create(user: User): User {
+    try {
+      this.users.push(user)
+      return user
+    } catch (err) {
+      throw new Error('Error occurred')
+    }
   }
 }
 

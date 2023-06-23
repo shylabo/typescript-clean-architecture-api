@@ -1,5 +1,7 @@
 import User from '../entities/user'
 import { UserRepository } from './user-repository'
+import { CreateUserInputData } from './input-data/user-input-data'
+import { CreateUserOutputData } from './output-data/user-output-data'
 
 class UserInteractor {
   private userRepository: UserRepository
@@ -12,10 +14,10 @@ class UserInteractor {
     return this.userRepository.getAll()
   }
 
-  public createUser(name: string, email: string, password: string): User {
-    const newUser = new User(name, email, password)
-    this.userRepository.create(newUser)
-    return newUser
+  public createUser(input: CreateUserInputData): User {
+    const newUser = new User(input.name, input.email, input.password)
+    const output: CreateUserOutputData = this.userRepository.create(newUser)
+    return output
   }
 }
 
