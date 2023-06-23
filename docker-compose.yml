@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  testdb:
+    image: postgres:14
+    container_name: testdb
+    volumes:
+      # - ./database:/var/lib/postgresql
+      - ./database/postgres-init:/docker-entrypoint-initdb.d
+    ports:
+      - '5555:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8'
+    restart: always
