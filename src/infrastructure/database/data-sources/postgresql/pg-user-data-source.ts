@@ -15,7 +15,7 @@ export async function getUserDataSource() {
   return new PGUserDataSource(db)
 }
 
-const DB_TABLE = 'conceptual.user'
+const DB_TABLE = 'external.users'
 
 export class PGUserDataSource implements UserDataSource {
   private db: SQLDatabaseWrapper

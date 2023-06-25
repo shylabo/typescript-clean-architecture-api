@@ -1,9 +1,7 @@
--- CREATE DATABASE testdb; 
-
--- switch to db created
 \c testdb
 
 CREATE SCHEMA conceptual;
+CREATE SCHEMA external;
 
 CREATE ROLE test WITH LOGIN PASSWORD 'postgres';
 
