@@ -1,4 +1,4 @@
-CREATE DATABASE testdb; 
+-- CREATE DATABASE testdb; 
 
 -- switch to db created
 \c testdb

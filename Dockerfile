@@ -1,8 +1,8 @@
 FROM node:14-alpine
-WORKDIR /usr/app
+WORKDIR /app
 
-COPY src. /src
-COPY package.json package-lock.json tsconfg.json ./
+COPY . .
+COPY package*.json tsconfig.json ./
 
 RUN npm install && npm run build
 
