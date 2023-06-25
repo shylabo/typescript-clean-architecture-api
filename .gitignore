@@ -5,7 +5,7 @@ node_modules/
 dist/
 
 # Ignore development environment files
-.env
+*.env
 
 # Ignore TypeScript build artifacts
 *.tsbuildinfo
@@ -27,3 +27,5 @@ npm-debug.log*
 
 # Ignore coverage in Jest
 coverage
+
+memo.yml
