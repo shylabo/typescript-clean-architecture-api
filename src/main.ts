@@ -1,18 +1,21 @@
 import express from 'express'
-import router from './infrastructure/router'
+import MainRouter from './infrastructure/routers/router'
+import * as dotenv from 'dotenv'
+dotenv.config({ path: './env/.env' })
+;(async () => {
+  const app = express()
 
-const app = express()
+  // Middleware
+  app.use(express.json())
 
-// Middleware
-app.use(express.json())
+  // Set Routers
+  const mainRouter = new MainRouter()
+  await mainRouter.setRouters()
+  app.use('/', mainRouter.getRouter())
 
-// Routes
-app.use(router)
-
-// Server
-const port = 3000
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`)
-})
-
-export default app
+  // Server
+  const port = process.env.API_PORT
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
+  })
+})()
