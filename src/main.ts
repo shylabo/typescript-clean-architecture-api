@@ -1,7 +1,6 @@
 import express from 'express'
 import MainRouter from './infrastructure/routers/router'
-import * as dotenv from 'dotenv'
-dotenv.config({ path: './env/.env' })
+import { ApiServerConfig } from './infrastructure/config/api-server-config'
 ;(async () => {
   const app = express()
 
@@ -14,8 +13,9 @@ dotenv.config({ path: './env/.env' })
   app.use('/', mainRouter.getRouter())
 
   // Server
-  const port = process.env.API_PORT
-  app.listen(port, () => {
-    console.log(`Server is running on port ${port}`)
+  const host = ApiServerConfig.API_HOST
+  const port = ApiServerConfig.API_PORT
+  app.listen(port, host, () => {
+    console.log(`Server is running on ${host}:${port}`)
   })
 })()

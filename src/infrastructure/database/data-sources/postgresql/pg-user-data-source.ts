@@ -2,17 +2,15 @@ import { UserDataSource } from '../../interfaces/data-sources/user-data-wrapper'
 import { SQLDatabaseWrapper } from '../../interfaces/data-sources/sql-database-wrapper'
 import { UnmarshalledUser, User } from '../../../../entities/user'
 import { Pool } from 'pg'
-import * as dotenv from 'dotenv'
-
-dotenv.config({ path: './env/.env' })
+import { DatabaseConfig } from '../../../config/database-config'
 
 export async function getUserDataSource() {
   const db = new Pool({
-    user: process.env.DB_USERNAME,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: parseInt(process.env.DB_PORT!, 10),
+    host: DatabaseConfig.DB_HOST,
+    port: DatabaseConfig.DB_PORT,
+    user: DatabaseConfig.DB_USERNAME,
+    password: DatabaseConfig.DB_PASSWORD,
+    database: DatabaseConfig.DB_NAME,
   })
   return new PGUserDataSource(db)
 }
