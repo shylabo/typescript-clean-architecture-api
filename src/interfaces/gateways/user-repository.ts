@@ -1,21 +1,29 @@
-import User from '../../entities/user'
+import { UnmarshalledUser, User } from '../../entities/user'
 import { UserRepository } from '../../use-cases/user-repository'
+import { UserMapper } from './mappers/user-mapper'
+
+interface UserDataSource {
+  getAll(): Promise<User[]>
+  create(user: UnmarshalledUser): Promise<User>
+}
 
 class UserRepositoryImpl implements UserRepository {
-  private users: User[]
+  private userDataSource: UserDataSource
 
-  constructor() {
-    this.users = []
+  constructor(userDataSource: UserDataSource) {
+    this.userDataSource = userDataSource
   }
 
-  public getAll(): User[] {
-    return this.users
+  async getAll(): Promise<User[]> {
+    const fetchedUsers = await this.userDataSource.getAll()
+    return fetchedUsers
   }
 
-  public create(user: User): User {
+  async create(user: User): Promise<User> {
     try {
-      this.users.push(user)
-      return user
+      const dtoUser = user.unmarshall()
+      const created = await this.userDataSource.create(dtoUser)
+      return UserMapper.toDomain(created)
     } catch (err) {
       throw new Error('Error occurred')
     }

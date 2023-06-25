@@ -1,6 +1,5 @@
-import User from '../entities/user'
-
+import { User } from '../entities/user'
 export interface UserRepository {
-  getAll(): User[]
-  create(user: User): User
+  getAll(): Promise<User[]>
+  create(user: User): Promise<User>
 }
