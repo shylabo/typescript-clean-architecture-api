@@ -1,6 +1,9 @@
 import { Request, Response } from 'express'
 import UserRepositoryImpl from '../gateways/user-repository'
+import { ApiResponse } from '../common/api/api-response'
 import UserInteractor from '../../use-cases/user-interactor'
+import { User } from '../../entities/user'
+import { Meta } from '../common/api/meta'
 
 class UserController {
   private userRepository: UserRepositoryImpl
@@ -17,10 +20,14 @@ class UserController {
   async getAll(req: Request, res: Response) {
     try {
       const users = await this.userInteractor.getAll()
-      res.json(users)
-    } catch (err) {
-      console.error(err)
-      res.status(500).json({ message: 'Error fetching data' })
+      const response: ApiResponse<User[]> = ApiResponse.success(users)
+      res.json(response)
+    } catch (err: any) {
+      const response: ApiResponse<unknown> = ApiResponse.error(
+        Meta.STATUS_INTERNAL_SERVER_ERROR.code,
+        err.message
+      )
+      res.json(response)
     }
   }
 
