@@ -2,6 +2,7 @@
 
 CREATE SCHEMA conceptual;
 CREATE SCHEMA external;
+DROP SCHEMA public CASCADE;
 
 CREATE ROLE test WITH LOGIN PASSWORD 'postgres';
 
