@@ -5,6 +5,7 @@ import UserInteractor from '../../use-cases/user-interactor'
 import { User } from '../../entities/user'
 import { Meta } from '../common/api/meta'
 import { SQLDatabaseClient } from '../gateways/database/db_client'
+import Logger from '../../infrastructure/logger'
 
 class UserController {
   private userRepository: UserRepositoryImpl
@@ -24,6 +25,7 @@ class UserController {
       const response: ApiResponse<User[]> = ApiResponse.success(users)
       res.json(response)
     } catch (err: any) {
+      Logger.getInstance().error('Error occurred: ', err)
       const response: ApiResponse<unknown> = ApiResponse.error(
         Meta.STATUS_INTERNAL_SERVER_ERROR.code,
         err.message
@@ -39,6 +41,7 @@ class UserController {
       const response: ApiResponse<User> = ApiResponse.success(newUser)
       res.json(response)
     } catch (err: any) {
+      Logger.getInstance().error('Error occurred: ', err)
       const response: ApiResponse<unknown> = ApiResponse.error(
         Meta.STATUS_INTERNAL_SERVER_ERROR.code,
         err.message

@@ -1,4 +1,5 @@
 import { Pool, PoolClient } from 'pg'
+import Logger from '../../logger'
 import { DatabaseConfig } from '../../config/database-config'
 import { SQLDatabaseClient } from '../sql-database-client'
 
@@ -55,6 +56,7 @@ export class TestDBClient implements SQLDatabaseClient {
       return result
     } catch (err) {
       await transaction.rollback()
+      Logger.getInstance().error('Error occurred in transaction: ', err)
       throw err
     } finally {
       transaction.release()

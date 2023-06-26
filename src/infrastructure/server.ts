@@ -1,13 +1,19 @@
 import express from 'express'
 import { ApiServerConfig } from './config/api-server-config'
 import MainRouter from './routers/router'
+import Logger from './logger'
 
 export class ServerApplication {
   private readonly host: string = ApiServerConfig.API_HOST
   private readonly port: number = ApiServerConfig.API_PORT
 
   public async run(): Promise<void> {
+    // Init Logger
+    const logger = Logger.getInstance()
+    logger.info('Logger initialized')
+
     const app = express()
+
     // Middleware
     app.use(express.json())
 
@@ -17,11 +23,9 @@ export class ServerApplication {
     app.use('/', mainRouter.getRouter())
 
     app.listen(this.port, this.host, () => {
-      console.log(`Server is running on ${this.host}:${this.port}`)
+      logger.info(`Server is running on ${this.host}:${this.port}`)
     })
   }
-
-  // TODO: Logger
 
   public static new(): ServerApplication {
     return new ServerApplication()
