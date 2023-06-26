@@ -1,28 +1,37 @@
-import { Meta } from './meta'
-import { Nullable } from '../type'
+import { Meta } from './meta';
+import { Nullable } from '../type';
 
 export class ApiResponse<TData> {
-  public readonly code: number
-  public readonly message: string
-  public readonly data: Nullable<TData>
+  public readonly code: number;
+  public readonly message: string;
+  public readonly data: Nullable<TData>;
 
   private constructor(code: number, message: string, data?: TData) {
-    this.code = code
-    this.message = message
-    this.data = data || null
+    this.code = code;
+    this.message = message;
+    this.data = data || null;
   }
 
-  public static success<TData>(data?: TData, code?: number, message?: string): ApiResponse<TData> {
-    const resultCode: number = code || Meta.STATUS_OK.code
-    const resultMessage: string = message || Meta.STATUS_OK.message
+  public static success<TData>(
+    data?: TData,
+    code?: number,
+    message?: string,
+  ): ApiResponse<TData> {
+    const resultCode: number = code || Meta.STATUS_OK.code;
+    const resultMessage: string = message || Meta.STATUS_OK.message;
 
-    return new ApiResponse(resultCode, resultMessage, data)
+    return new ApiResponse(resultCode, resultMessage, data);
   }
 
-  public static error<TData>(code?: number, message?: string, data?: TData): ApiResponse<TData> {
-    const resultCode: number = code || Meta.STATUS_INTERNAL_SERVER_ERROR.code
-    const resultMessage: string = message || Meta.STATUS_INTERNAL_SERVER_ERROR.message
+  public static error<TData>(
+    code?: number,
+    message?: string,
+    data?: TData,
+  ): ApiResponse<TData> {
+    const resultCode: number = code || Meta.STATUS_INTERNAL_SERVER_ERROR.code;
+    const resultMessage: string =
+      message || Meta.STATUS_INTERNAL_SERVER_ERROR.message;
 
-    return new ApiResponse(resultCode, resultMessage, data)
+    return new ApiResponse(resultCode, resultMessage, data);
   }
 }

@@ -1,4 +1,4 @@
-import { User, UnmarshalledUser } from '../../../entities/user'
+import { User, UnmarshalledUser } from '../../../entities/user';
 
 export class UserMapper {
   public static toDomainEntity(raw: UnmarshalledUser): User {
@@ -7,10 +7,10 @@ export class UserMapper {
       name: raw.name,
       email: raw.email,
       password: raw.password,
-    })
+    });
   }
 
   public static toDomainEntities(raws: UnmarshalledUser[]): User[] {
-    return raws.map((raw) => this.toDomainEntity(raw))
+    return raws.map((raw) => this.toDomainEntity(raw));
   }
 }
