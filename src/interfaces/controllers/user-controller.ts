@@ -4,20 +4,21 @@ import { ApiResponse } from '../common/api/api-response'
 import UserInteractor from '../../use-cases/user-interactor'
 import { User } from '../../entities/user'
 import { Meta } from '../common/api/meta'
+import { SQLDatabaseClient } from '../gateways/database/db_client'
 
 class UserController {
   private userRepository: UserRepositoryImpl
   private userInteractor: UserInteractor
 
-  constructor(userDataSource: any) {
-    this.userRepository = new UserRepositoryImpl(userDataSource)
+  constructor(dbClient: SQLDatabaseClient) {
+    this.userRepository = new UserRepositoryImpl(dbClient)
     this.userInteractor = new UserInteractor(this.userRepository)
 
-    this.getAll = this.getAll.bind(this)
+    this.getUsers = this.getUsers.bind(this)
     this.createUser = this.createUser.bind(this)
   }
 
-  async getAll(req: Request, res: Response) {
+  async getUsers(req: Request, res: Response) {
     try {
       const users = await this.userInteractor.getAll()
       const response: ApiResponse<User[]> = ApiResponse.success(users)

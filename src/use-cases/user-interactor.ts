@@ -9,13 +9,13 @@ class UserInteractor {
   }
 
   public getAll(): Promise<User[]> {
-    const users = this.userRepository.getAll()
+    const users = this.userRepository.getUsers()
     return users
   }
 
   public async createUser(input: User): Promise<User> {
     const newUser = await User.new(input)
-    const createdUser = await this.userRepository.create(newUser)
+    const createdUser = await this.userRepository.createUser(newUser)
     return createdUser
   }
 }

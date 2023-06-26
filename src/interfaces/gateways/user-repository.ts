@@ -1,33 +1,44 @@
-import { UnmarshalledUser, User } from '../../entities/user'
+import { User } from '../../entities/user'
 import { UserRepository } from '../../use-cases/user-repository'
+import { SQLDatabaseClient } from './database/db_client'
 import { UserMapper } from './mappers/user-mapper'
 
-interface UserDataSource {
-  getAll(): Promise<User[]>
-  create(user: UnmarshalledUser): Promise<User>
-}
+const DB_TABLE = 'conceptual.users'
+const DB_VIEW = 'external.users'
 
 class UserRepositoryImpl implements UserRepository {
-  private userDataSource: UserDataSource
+  private dbClient: SQLDatabaseClient
 
-  constructor(userDataSource: UserDataSource) {
-    this.userDataSource = userDataSource
+  constructor(dbClient: SQLDatabaseClient) {
+    this.dbClient = dbClient
   }
 
-  async getAll(): Promise<User[]> {
+  async getUsers(): Promise<User[]> {
     try {
-      const fetchedUsers = await this.userDataSource.getAll()
-      return fetchedUsers
+      const dbResponse = await this.dbClient.executeQuery(`select * from ${DB_VIEW}`)
+      const result = UserMapper.toDomainEntities(dbResponse.rows)
+      return result
     } catch (err: any) {
       throw new Error(`Error occurred: ${err.message}`)
     }
   }
 
-  async create(user: User): Promise<User> {
+  async createUser(user: User): Promise<User> {
     try {
       const dtoUser = user.unmarshall()
-      const created = await this.userDataSource.create(dtoUser)
-      return created
+      await this.dbClient.executeQuery(
+        `insert into ${DB_TABLE} (name, email, password) values($1, $2, $3)`,
+        [dtoUser.name, dtoUser.email, dtoUser.password]
+      )
+
+      const dbResponse = await this.dbClient.executeQuery(
+        `select * from ${DB_VIEW} where email = $1`,
+        [dtoUser.email]
+      )
+
+      const createdUser = UserMapper.toDomainEntity(dbResponse.rows[0])
+
+      return createdUser
     } catch (err: any) {
       throw new Error(`Error occurred: ${err.message}`)
     }

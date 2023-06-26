@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
-import { getUserDataSource } from '../database/data-sources/postgresql/pg-user-data-source'
 import UserController from '../../interfaces/controllers/user-controller'
+import { TestDBClient } from '../database/postgresql/db-client'
 
 class UserRouter {
   private router: Router
@@ -10,10 +10,10 @@ class UserRouter {
   }
 
   public async setUserRoutes(): Promise<void> {
-    const userDataSource = await getUserDataSource()
-    const userController = new UserController(userDataSource)
+    const dbClient = await TestDBClient.newFromConfig()
+    const userController = new UserController(dbClient)
 
-    this.router.get('/', userController.getAll)
+    this.router.get('/', userController.getUsers)
     this.router.post('/', userController.createUser)
   }
 
