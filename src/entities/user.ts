@@ -1,4 +1,5 @@
 import { Entity } from './entity'
+import { genSalt, hash } from 'bcryptjs'
 
 export interface UnmarshalledUser {
   id?: string
@@ -8,13 +9,14 @@ export interface UnmarshalledUser {
 }
 
 export class User extends Entity<UnmarshalledUser> {
-  private constructor(props: UnmarshalledUser) {
+  constructor(props: UnmarshalledUser) {
     const { id, ...data } = props
     super(data, id!)
   }
 
-  public static create(props: UnmarshalledUser): User {
+  public static async new(props: UnmarshalledUser): Promise<User> {
     const instance = new User(props)
+    await instance.hashPassword()
     return instance
   }
 
@@ -26,6 +28,11 @@ export class User extends Entity<UnmarshalledUser> {
       email: this.email,
       password: this.password,
     }
+  }
+
+  public async hashPassword(): Promise<void> {
+    const salt: string = await genSalt()
+    this.props.password = await hash(this.props.password, salt)
   }
 
   get id(): string | undefined {

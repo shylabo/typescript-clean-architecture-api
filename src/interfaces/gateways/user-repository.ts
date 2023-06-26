@@ -15,17 +15,21 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   async getAll(): Promise<User[]> {
-    const fetchedUsers = await this.userDataSource.getAll()
-    return fetchedUsers
+    try {
+      const fetchedUsers = await this.userDataSource.getAll()
+      return fetchedUsers
+    } catch (err: any) {
+      throw new Error(`Error occurred: ${err.message}`)
+    }
   }
 
   async create(user: User): Promise<User> {
     try {
       const dtoUser = user.unmarshall()
       const created = await this.userDataSource.create(dtoUser)
-      return UserMapper.toDomain(created)
-    } catch (err) {
-      throw new Error('Error occurred')
+      return created
+    } catch (err: any) {
+      throw new Error(`Error occurred: ${err.message}`)
     }
   }
 }

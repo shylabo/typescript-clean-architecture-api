@@ -13,9 +13,10 @@ class UserInteractor {
     return users
   }
 
-  public createUser(input: User): Promise<User> {
-    const newUser = User.create(input)
-    return this.userRepository.create(newUser)
+  public async createUser(input: User): Promise<User> {
+    const newUser = await User.new(input)
+    const createdUser = await this.userRepository.create(newUser)
+    return createdUser
   }
 }
 

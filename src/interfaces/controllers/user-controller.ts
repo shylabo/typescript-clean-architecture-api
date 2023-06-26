@@ -34,10 +34,15 @@ class UserController {
   async createUser(req: Request, res: Response) {
     try {
       const inputData = req.body
-      const newUser = this.userInteractor.createUser(inputData)
-      res.status(201).json(newUser)
-    } catch (err) {
-      res.status(500).json({ message: 'Error Creating data' })
+      const newUser = await this.userInteractor.createUser(inputData)
+      const response: ApiResponse<User> = ApiResponse.success(newUser)
+      res.json(response)
+    } catch (err: any) {
+      const response: ApiResponse<unknown> = ApiResponse.error(
+        Meta.STATUS_INTERNAL_SERVER_ERROR.code,
+        err.message
+      )
+      res.json(response)
     }
   }
 }
