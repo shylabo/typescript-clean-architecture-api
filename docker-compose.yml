@@ -2,19 +2,34 @@ version: '3.9'
 
 services:
   testdb:
-    image: postgres:14
+    build:
+      context: ./database/postgres
+      dockerfile: Dockerfile
     container_name: testdb
-    volumes:
-      - db-data:/var/lib/postgresql
-      - ./database/postgres-init:/docker-entrypoint-initdb.d
     ports:
       - '5555:5432'
+    volumes:
+      - db-data:/var/lib/postgresql
     environment:
       POSTGRES_DB: testdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_INITDB_ARGS: '--encoding=UTF-8'
     restart: always
+
+  nosqldb:
+    build:
+      context: ./database/mongodb
+      dockerfile: Dockerfile
+    container_name: nosqldb
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    restart: always
+
   # api:
   #   build:
   #     context: ./
@@ -24,12 +39,18 @@ services:
   #     - 3000:3000
   #   depends_on:
   #     - testdb
+  #     - nosqldb
   #   environment:
   #     DB_HOST: testdb
   #     DB_PORT: 5432
   #     DB_NAME: testdb
-  #     DB_USER: postgres
+  #     DB_USERNAME: postgres
   #     DB_PASSWORD: postgres
+  #     MONGO_DB_NAME: nosqldb
+  #     MONGO_INITDB_ROOT_USERNAME: mongodb
+  #     MONGO_INITDB_ROOT_PASSWORD: mongodb
   #   restart: always
+
 volumes:
   db-data:
+  mongo-data:

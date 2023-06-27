@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
-import UserController from '../../interfaces/controllers/user-controller';
+import Logger from '../logger';
 import { TestDBClient } from '../database/postgresql/db-client';
+import UserController from '../../interfaces/controllers/user-controller';
 
 class UserRouter {
   private router: Router;
@@ -10,11 +11,15 @@ class UserRouter {
   }
 
   public async setUserRoutes(): Promise<void> {
-    const dbClient = await TestDBClient.newFromConfig();
-    const userController = new UserController(dbClient);
+    try {
+      const dbClient = await TestDBClient.newFromConfig();
+      const userController = new UserController(dbClient);
 
-    this.router.get('/', userController.getUsers);
-    this.router.post('/', userController.createUser);
+      this.router.get('/', userController.getUsers);
+      this.router.post('/', userController.createUser);
+    } catch (err) {
+      Logger.getInstance().error('Error occurred while initiating db:', err);
+    }
   }
 
   public getRouter(): Router {

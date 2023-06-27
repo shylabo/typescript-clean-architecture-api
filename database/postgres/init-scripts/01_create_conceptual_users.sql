@@ -13,4 +13,6 @@ GRANT ALL PRIVILEGES ON conceptual.users TO test;
 
 INSERT INTO conceptual.users
 (name, email, password)
-VALUES('test', 'test@gmail.com', 'password');
+VALUES
+('Sheldon Cooper', 'sheldon@example.com', 'ihaveageniusleveliqof187'),
+('Leonard Hofstadter', 'leonard@example.com', 'lactoseintolerance');
