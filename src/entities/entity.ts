@@ -1,29 +1,20 @@
-const isEntity = <T>(v: Entity<T>): v is Entity<T> => {
-  return v instanceof Entity;
-};
+import { StatusCodes } from '../shared/status-codes';
+import { Exception } from '../shared/exception';
+import { Optional } from '../shared/type';
 
-export abstract class Entity<T> {
-  protected readonly _id?: string;
-  protected props: T;
+export abstract class Entity<TIdentifier extends string | number> {
+  protected id: Optional<TIdentifier>;
 
-  constructor(props: T, id?: string) {
-    this._id = id ? id : undefined;
-    this.props = props;
+  public getId(): TIdentifier {
+    if (typeof this.id === 'undefined') {
+      throw Exception.new({
+        code: StatusCodes.STATUS_ENTITY_VALIDATION_ERROR,
+        overrideMessage: `${this.constructor.name}: ID is empty.`,
+      });
+    }
+
+    return this.id;
   }
 
-  public equals(object?: Entity<T>): boolean {
-    if (object === null || object === undefined) {
-      return false;
-    }
-
-    if (this === object) {
-      return true;
-    }
-
-    if (!isEntity(object)) {
-      return true;
-    }
-
-    return this._id === object._id;
-  }
+  // TODO: Entity validation
 }

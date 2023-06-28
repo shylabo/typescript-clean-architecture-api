@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
-import MessageRepositoryImpl from '../gateways/message-repository';
 import { ApiResponse } from '../common/api/api-response';
-import MessageInteractor from '../../use-cases/message-interactor';
-import { Message } from '../../entities/message';
-import { Meta } from '../common/api/meta';
+import MessageRepositoryImpl from '../gateways/message-repository';
 import { NoSQLDatabaseClient } from '../gateways/database/db_client';
-import Logger from '../../infrastructure/logger';
+import { GetMessageAdapter } from '../adapters/CreateMessageAdapter';
+import MessageInteractor from '../../use-cases/message/message-interactor';
+import { MessageUseCaseDto } from '../../use-cases/message/message-usecase-dto';
 
 class MessageController {
   private messageRepository: MessageRepositoryImpl;
@@ -19,22 +18,13 @@ class MessageController {
   }
 
   async getMessages(req: Request, res: Response) {
-    try {
-      const { senderId, recipientId } = req.query;
-      const messages = await this.messageInteractor.getAll(
-        parseInt(senderId as string, 10),
-        parseInt(recipientId as string, 10),
-      );
-      const response: ApiResponse<Message[]> = ApiResponse.success(messages);
-      res.json(response);
-    } catch (err: any) {
-      Logger.getInstance().error('Error occurred: ', err);
-      const response: ApiResponse<unknown> = ApiResponse.error(
-        Meta.STATUS_INTERNAL_SERVER_ERROR.code,
-        err.message,
-      );
-      res.json(response);
-    }
+    const adapter: GetMessageAdapter = await GetMessageAdapter.new({
+      senderId: parseInt(req.query.senderId as string, 10),
+      recipientId: parseInt(req.query.recipientId as string, 10),
+    });
+    const messages = await this.messageInteractor.getAll(adapter);
+    const response: ApiResponse<MessageUseCaseDto[]> = ApiResponse.success(messages);
+    res.json(response);
   }
 }
 

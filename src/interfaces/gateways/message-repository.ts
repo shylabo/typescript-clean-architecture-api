@@ -1,5 +1,5 @@
 import { Message } from '../../entities/message';
-import { MessageRepository } from '../../use-cases/message-repository';
+import { MessageRepository } from '../../use-cases/message/message-repository';
 import { NoSQLDatabaseClient } from './database/db_client';
 import { MessageMapper } from './mappers/message-mapper';
 

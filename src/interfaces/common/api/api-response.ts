@@ -1,5 +1,5 @@
-import { Meta } from './meta';
-import { Nullable } from '../type';
+import { StatusCodes } from '../../../shared/status-codes';
+import { Nullable } from '../../../shared/type';
 
 export class ApiResponse<TData> {
   public readonly code: number;
@@ -12,25 +12,16 @@ export class ApiResponse<TData> {
     this.data = data || null;
   }
 
-  public static success<TData>(
-    data?: TData,
-    code?: number,
-    message?: string,
-  ): ApiResponse<TData> {
-    const resultCode: number = code || Meta.STATUS_OK.code;
-    const resultMessage: string = message || Meta.STATUS_OK.message;
+  public static success<TData>(data?: TData, code?: number, message?: string): ApiResponse<TData> {
+    const resultCode: number = code || StatusCodes.STATUS_OK.code;
+    const resultMessage: string = message || StatusCodes.STATUS_OK.message;
 
     return new ApiResponse(resultCode, resultMessage, data);
   }
 
-  public static error<TData>(
-    code?: number,
-    message?: string,
-    data?: TData,
-  ): ApiResponse<TData> {
-    const resultCode: number = code || Meta.STATUS_INTERNAL_SERVER_ERROR.code;
-    const resultMessage: string =
-      message || Meta.STATUS_INTERNAL_SERVER_ERROR.message;
+  public static error<TData>(code?: number, message?: string, data?: TData): ApiResponse<TData> {
+    const resultCode: number = code || StatusCodes.STATUS_INTERNAL_SERVER_ERROR.code;
+    const resultMessage: string = message || StatusCodes.STATUS_INTERNAL_SERVER_ERROR.message;
 
     return new ApiResponse(resultCode, resultMessage, data);
   }

@@ -3,13 +3,18 @@ import { Message } from '../../../entities/message';
 
 export class MessageMapper {
   public static toDomainEntity(raw: WithId<Document>): Message {
-    return new Message({
-      id: raw._id.toString(),
+    const domainMessage = new Message({
       conversationId: raw.conversationId,
       senderId: raw.senderId,
       recipientId: raw.recipientId,
       content: raw.content,
+      id: raw._id.toString(),
+      createdAt: raw.createdAt,
+      updatedAt: raw.updatedAt,
+      deletedAt: raw.deletedAt,
     });
+
+    return domainMessage;
   }
 
   public static toDomainEntities(raws: WithId<Document>[]): Message[] {
