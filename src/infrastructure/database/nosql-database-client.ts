@@ -1,8 +1,4 @@
 import { Document, ObjectId, WithId } from 'mongodb';
-export interface SQLDatabaseClient {
-  executeQuery(query: string, params?: any[]): Promise<{ rows: any[] }>;
-  executeTransaction(callback: (client: any) => Promise<any>): Promise<any>;
-}
 
 export interface NoSQLDatabaseClient {
   find(query: object): Promise<WithId<Document>[]>;
