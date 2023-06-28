@@ -27,9 +27,7 @@ export class MongoDBClient implements NoSQLDatabaseClient {
     this.collection = config.collection;
   }
 
-  public static async newFromConfig(
-    collectionName: string,
-  ): Promise<MongoDBClient> {
+  public static async newFromConfig(collectionName: string): Promise<MongoDBClient> {
     const dbClient = new MongoDBClient({
       host: DatabaseConfig.MONGO_INITDB_HOST,
       port: DatabaseConfig.MONGO_INITDB_PORT,
@@ -44,11 +42,7 @@ export class MongoDBClient implements NoSQLDatabaseClient {
 
   public async find(query: object): Promise<WithId<Document>[]> {
     await this.client.connect();
-    const results = this.client
-      .db(this.dbName)
-      .collection(this.collection)
-      .find(query)
-      .toArray();
+    const results = this.client.db(this.dbName).collection(this.collection).find(query).toArray();
     return results;
   }
 
@@ -59,17 +53,11 @@ export class MongoDBClient implements NoSQLDatabaseClient {
 
   public async updateOne(id: ObjectId, data: object): Promise<void> {
     await this.client.connect();
-    this.client
-      .db(this.dbName)
-      .collection(this.collection)
-      .updateOne({ _id: id }, { $set: data });
+    this.client.db(this.dbName).collection(this.collection).updateOne({ _id: id }, { $set: data });
   }
 
   public async deleteOne(id: ObjectId): Promise<void> {
     await this.client.connect();
-    this.client
-      .db(this.dbName)
-      .collection(this.collection)
-      .deleteOne({ _id: id });
+    this.client.db(this.dbName).collection(this.collection).deleteOne({ _id: id });
   }
 }

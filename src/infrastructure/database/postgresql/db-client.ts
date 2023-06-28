@@ -35,10 +35,7 @@ export class TestDBClient implements SQLDatabaseClient {
     return dbClient;
   }
 
-  public async executeQuery(
-    query: string,
-    params: any[] = [],
-  ): Promise<{ rows: any[] }> {
+  public async executeQuery(query: string, params: any[] = []): Promise<{ rows: any[] }> {
     const client = await this.pool.connect();
     try {
       const result = await client.query(query, params);
@@ -48,9 +45,7 @@ export class TestDBClient implements SQLDatabaseClient {
     }
   }
 
-  public async executeTransaction(
-    callback: (client: PoolClient) => Promise<any>,
-  ): Promise<any> {
+  public async executeTransaction(callback: (client: PoolClient) => Promise<any>): Promise<any> {
     const client = await this.pool.connect();
     const transaction = new TransactionWrapper(client);
 

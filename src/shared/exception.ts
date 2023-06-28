@@ -11,11 +11,7 @@ export class Exception<TData> extends Error {
   public readonly code: number;
   public readonly data: Optional<TData>;
 
-  private constructor(
-    statusCode: StatusCode,
-    overrideMessage?: string,
-    data?: TData,
-  ) {
+  private constructor(statusCode: StatusCode, overrideMessage?: string, data?: TData) {
     super();
 
     this.name = this.constructor.name;
@@ -26,9 +22,7 @@ export class Exception<TData> extends Error {
     Error.captureStackTrace(this, this.constructor);
   }
 
-  public static new<TData>(
-    payload: CreateExceptionPayload<TData>,
-  ): Exception<TData> {
+  public static new<TData>(payload: CreateExceptionPayload<TData>): Exception<TData> {
     return new Exception(payload.code, payload.overrideMessage, payload.data);
   }
 }
