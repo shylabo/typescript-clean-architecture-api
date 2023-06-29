@@ -1,16 +1,8 @@
 import { genSalt, hash } from 'bcryptjs';
-import { Entity } from './entity';
-import { Nullable } from '../shared/type';
 
-export interface CreateUserEntityPayload {
-  name: string;
-  email: string;
-  password: string;
-  id?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
-}
+import { CreateUserEntityPayload } from './type/create-user-entity-payload';
+import { Entity } from '../../../common/entity';
+import { Nullable } from '../../../common/type';
 
 export class User extends Entity<number> {
   private name: string;
@@ -63,7 +55,7 @@ export class User extends Entity<number> {
   }
 
   public static async new(payload: CreateUserEntityPayload): Promise<User> {
-    const user = new User(payload);
+    const user: User = new User(payload);
     await user.hashPassword();
 
     return user;

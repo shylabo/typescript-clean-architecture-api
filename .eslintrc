@@ -12,6 +12,27 @@
     "jest": true
   },
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "quotes": ["error", "single"],
+    "indent": [
+      "error",
+      2,
+      {
+        "MemberExpression": 1
+      }
+    ],
+    "@typescript-eslint/typedef": [
+      "error",
+      {
+        "memberVariableDeclaration": true,
+        "propertyDeclaration": true,
+        // "variableDeclaration": true,
+        "variableDeclarationIgnoreFunction": true,
+        "arrowParameter": false
+      }
+    ],
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/semi": ["error", "always"]
   }
 }

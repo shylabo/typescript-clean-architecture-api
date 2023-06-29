@@ -1,18 +1,20 @@
 import { Request, Response } from 'express';
 
 import UserRepositoryImpl from '../gateways/user-repository';
-import { ApiResponse } from '../common/api/api-response';
+import { ApiResponse } from '../../core/common/api-response';
 import { SQLDatabaseClient } from '../gateways/database/db_client';
 import { CreateUserAdapter } from '../adapters/CreateUserAdapter';
 import { GetUserAdapter } from '../adapters/GetUserAdapter';
-import { UserUseCaseDto } from '../../use-cases/user/user-usecase-dto';
-import GetUserInteractor from '../../use-cases/user/get-user-interactor';
-import CreateUserInteractor from '../../use-cases/user/create-user-interactor';
+import { UserUseCaseDto } from '../../core/domain/user/usecase/dto/user-usecase-dto';
+import CreateUserInteractor from '../../core/service/user/create-user-interactor';
+import { GetUserUseCase } from '../../core/domain/user/usecase/get-user-usecase';
+import GetUserInteractor from '../../core/service/user/get-user-interactor';
+import { CreateUserUseCase } from '../../core/domain/user/usecase/create-user-usecase';
 
 class UserController {
   private userRepository: UserRepositoryImpl;
-  private getUserService: GetUserInteractor;
-  private createUserService: CreateUserInteractor;
+  private getUserService: GetUserUseCase;
+  private createUserService: CreateUserUseCase;
 
   constructor(dbClient: SQLDatabaseClient) {
     this.userRepository = new UserRepositoryImpl(dbClient);
@@ -27,7 +29,7 @@ class UserController {
     const adapter: GetUserAdapter = await GetUserAdapter.new({
       id: parseInt(req.query.id as string, 10),
     });
-    const user = await this.getUserService.getUserById(adapter);
+    const user: UserUseCaseDto = await this.getUserService.execute(adapter);
     const response: ApiResponse<UserUseCaseDto> = ApiResponse.success(user);
     res.json(response);
   }
@@ -38,7 +40,7 @@ class UserController {
       email: req.body.email,
       password: req.body.password,
     });
-    const createdUser: UserUseCaseDto = await this.createUserService.createUser(adapter);
+    const createdUser: UserUseCaseDto = await this.createUserService.execute(adapter);
     const response: ApiResponse<UserUseCaseDto> = ApiResponse.success(createdUser);
     res.json(response);
   }

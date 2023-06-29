@@ -28,7 +28,7 @@ export class MongoDBClient implements NoSQLDatabaseClient {
   }
 
   public static async newFromConfig(collectionName: string): Promise<MongoDBClient> {
-    const dbClient = new MongoDBClient({
+    const dbClient: MongoDBClient = new MongoDBClient({
       host: DatabaseConfig.MONGO_INITDB_HOST,
       port: DatabaseConfig.MONGO_INITDB_PORT,
       database: DatabaseConfig.MONGO_INITDB_NAME,
@@ -42,7 +42,11 @@ export class MongoDBClient implements NoSQLDatabaseClient {
 
   public async find(query: object): Promise<WithId<Document>[]> {
     await this.client.connect();
-    const results = this.client.db(this.dbName).collection(this.collection).find(query).toArray();
+    const results: Promise<WithId<Document>[]> = this.client
+      .db(this.dbName)
+      .collection(this.collection)
+      .find(query)
+      .toArray();
     return results;
   }
 

@@ -1,4 +1,4 @@
-import { GetUserPort } from '../../use-cases/user/get-user-port';
+import { GetUserPort } from '../../core/domain/user/port/usecase/get-user-port';
 import { Exclude, Expose, plainToClass } from 'class-transformer';
 
 @Exclude()

@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
-import { ApiResponse } from '../common/api/api-response';
+import { ApiResponse } from '../../core/common/api-response';
 import MessageRepositoryImpl from '../gateways/message-repository';
 import { NoSQLDatabaseClient } from '../gateways/database/db_client';
 import { GetMessageAdapter } from '../adapters/CreateMessageAdapter';
-import GetMessagesInteractor from '../../use-cases/message/message-interactor';
-import { MessageUseCaseDto } from '../../use-cases/message/message-usecase-dto';
+import GetMessagesInteractor from '../../core/service/message/get-messages-interactor';
+import { MessageUseCaseDto } from '../../core/domain/message/usecase/dto/message-usecase-dto';
+import { GetMessagesUseCase } from '../../core/domain/message/usecase/get-messages-usecase';
 
 class MessageController {
   private messageRepository: MessageRepositoryImpl;
-  private getMessagesService: GetMessagesInteractor;
+  private getMessagesService: GetMessagesUseCase;
 
   constructor(dbClient: NoSQLDatabaseClient) {
     this.messageRepository = new MessageRepositoryImpl(dbClient);
@@ -22,7 +23,7 @@ class MessageController {
       senderId: parseInt(req.query.senderId as string, 10),
       recipientId: parseInt(req.query.recipientId as string, 10),
     });
-    const messages = await this.getMessagesService.getAll(adapter);
+    const messages: MessageUseCaseDto[] = await this.getMessagesService.execute(adapter);
     const response: ApiResponse<MessageUseCaseDto[]> = ApiResponse.success(messages);
     res.json(response);
   }

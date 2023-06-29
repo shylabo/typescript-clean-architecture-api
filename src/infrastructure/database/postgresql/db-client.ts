@@ -25,7 +25,7 @@ export class TestDBClient implements SQLDatabaseClient {
   }
 
   public static async newFromConfig(): Promise<TestDBClient> {
-    const dbClient = new TestDBClient({
+    const dbClient: TestDBClient = new TestDBClient({
       host: DatabaseConfig.DB_HOST,
       port: DatabaseConfig.DB_PORT,
       user: DatabaseConfig.DB_USERNAME,

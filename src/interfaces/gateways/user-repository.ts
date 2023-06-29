@@ -1,5 +1,5 @@
-import { User } from '../../entities/user';
-import { UserRepository } from '../../use-cases/user/user-repository';
+import { User } from '../../core/domain/user/entity/user';
+import { UserRepository } from '../../core/domain/user/port/persistence/user-repository';
 import { SQLDatabaseClient } from './database/db_client';
 import { UserMapper } from './mappers/user-mapper';
 

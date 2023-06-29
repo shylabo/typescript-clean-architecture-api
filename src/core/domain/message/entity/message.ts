@@ -1,16 +1,6 @@
-import { Entity } from './entity';
-import { Nullable } from '../shared/type';
-
-export interface CreateMessageEntityPayload {
-  conversationId?: string;
-  senderId: number;
-  recipientId: number;
-  content: string;
-  id?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
-}
+import { CreateMessageEntityPayload } from './type/create-message-entity-payload';
+import { Entity } from '../../../common/entity';
+import { Nullable } from '../../../common/type';
 
 export class Message extends Entity<string> {
   private conversationId?: string;
@@ -64,7 +54,7 @@ export class Message extends Entity<string> {
   }
 
   public static async new(payload: CreateMessageEntityPayload): Promise<Message> {
-    const message = new Message(payload);
+    const message: Message = new Message(payload);
 
     return message;
   }

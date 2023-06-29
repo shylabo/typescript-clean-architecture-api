@@ -1,4 +1,4 @@
-import { GetMessagePort } from '../../use-cases/message/get-message-port';
+import { GetMessagePort } from '../../core/domain/message/port/usecase/get-message-port';
 import { Exclude, Expose, plainToClass } from 'class-transformer';
 
 @Exclude()

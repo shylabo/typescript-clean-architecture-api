@@ -1,5 +1,5 @@
-import { StatusCodes } from '../../../shared/status-codes';
-import { Nullable } from '../../../shared/type';
+import { StatusCodes } from './status-codes';
+import { Nullable } from './type';
 
 export class ApiResponse<TData> {
   public readonly code: number;
