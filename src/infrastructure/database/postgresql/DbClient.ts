@@ -1,7 +1,7 @@
 import { Pool, PoolClient } from 'pg';
-import Logger from '../../logger';
-import { DatabaseConfig } from '../../config/database-config';
-import { SQLDatabaseClient } from '../sql-database-client';
+import Logger from '../../Logger';
+import { DatabaseConfig } from '../../config/DatabaseConfig';
+import { SQLDatabaseClient } from '../SqlDatabaseClient';
 
 export interface TestDBClientConfig {
   host: string;

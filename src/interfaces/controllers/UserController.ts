@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 
-import UserRepositoryImpl from '../gateways/user-repository';
-import { ApiResponse } from '../../core/common/api-response';
-import { SQLDatabaseClient } from '../gateways/database/db_client';
+import UserRepositoryImpl from '../gateways/UserRepository';
+import { ApiResponse } from '../../core/common/ApiResponse';
+import { SQLDatabaseClient } from '../gateways/database/DbClient';
 import { CreateUserAdapter } from '../adapters/CreateUserAdapter';
 import { GetUserAdapter } from '../adapters/GetUserAdapter';
-import { UserUseCaseDto } from '../../core/domain/user/usecase/dto/user-usecase-dto';
-import CreateUserInteractor from '../../core/service/user/create-user-interactor';
-import { GetUserUseCase } from '../../core/domain/user/usecase/get-user-usecase';
-import GetUserInteractor from '../../core/service/user/get-user-interactor';
-import { CreateUserUseCase } from '../../core/domain/user/usecase/create-user-usecase';
+import { UserUseCaseDto } from '../../core/domain/user/usecase/dto/UserUseCaseDto';
+import CreateUserInteractor from '../../core/service/user/CreateUserInteractor';
+import { GetUserUseCase } from '../../core/domain/user/usecase/GetUserUseCase';
+import GetUserInteractor from '../../core/service/user/GetUserInteractor';
+import { CreateUserUseCase } from '../../core/domain/user/usecase/CreateUserUsecase';
 
 class UserController {
   private userRepository: UserRepositoryImpl;

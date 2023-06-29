@@ -1,7 +1,7 @@
-import { User } from '../../core/domain/user/entity/user';
-import { UserRepository } from '../../core/domain/user/port/persistence/user-repository';
-import { SQLDatabaseClient } from './database/db_client';
-import { UserMapper } from './mappers/user-mapper';
+import { User } from '../../core/domain/user/entity/User';
+import { UserRepository } from '../../core/domain/user/port/persistence/UserRepository';
+import { SQLDatabaseClient } from './database/DbClient';
+import { UserMapper } from './mappers/UserMapper';
 
 const DB_TABLE = 'conceptual.users';
 const DB_VIEW = 'external.users';

@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
-import Logger from '../logger';
-import { TestDBClient } from '../database/postgresql/db-client';
-import UserController from '../../interfaces/controllers/user-controller';
+import Logger from '../Logger';
+import { TestDBClient } from '../database/postgresql/DbClient';
+import UserController from '../../interfaces/controllers/UserController';
 
 class UserRouter {
   private router: Router;

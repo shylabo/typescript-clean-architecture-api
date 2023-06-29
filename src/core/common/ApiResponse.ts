@@ -1,5 +1,5 @@
-import { StatusCodes } from './status-codes';
-import { Nullable } from './type';
+import { StatusCodes } from './StatusCodes';
+import { Nullable } from './Type';
 
 export class ApiResponse<TData> {
   public readonly code: number;

@@ -1,7 +1,7 @@
 import express from 'express';
-import { ApiServerConfig } from './config/api-server-config';
-import MainRouter from './routers/router';
-import Logger from './logger';
+import { ApiServerConfig } from './config/ApiServerConfig';
+import MainRouter from './routers/Router';
+import Logger from './Logger';
 
 export class ServerApplication {
   private readonly host: string = ApiServerConfig.API_HOST;

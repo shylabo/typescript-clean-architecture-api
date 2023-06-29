@@ -1,6 +1,6 @@
-import { StatusCodes } from './status-codes';
+import { StatusCodes } from './StatusCodes';
 import { Exception } from './exception';
-import { Optional } from './type';
+import { Optional } from './Type';
 
 export abstract class Entity<TIdentifier extends string | number> {
   protected id: Optional<TIdentifier>;

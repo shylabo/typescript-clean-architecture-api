@@ -1,5 +1,5 @@
 import { Document, WithId } from 'mongodb';
-import { Message } from '../../../core/domain/message/entity/message';
+import { Message } from '../../../core/domain/message/entity/Message';
 
 export class MessageMapper {
   public static toDomainEntity(raw: WithId<Document>): Message {

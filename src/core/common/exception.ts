@@ -1,5 +1,5 @@
-import { StatusCode } from './status-codes';
-import { Optional } from './type';
+import { StatusCode } from './StatusCodes';
+import { Optional } from './Type';
 
 export type CreateExceptionPayload<TData> = {
   code: StatusCode;

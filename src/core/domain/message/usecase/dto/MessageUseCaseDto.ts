@@ -1,4 +1,4 @@
-import { Message } from '../../entity/message';
+import { Message } from '../../entity/Message';
 import { Exclude, Expose, plainToClass } from 'class-transformer';
 
 @Exclude()

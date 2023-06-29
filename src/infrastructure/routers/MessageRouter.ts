@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
-import Logger from '../logger';
-import { MongoDBClient } from '../database/mongodb/db-client';
-import MessageController from '../../interfaces/controllers/message-controller';
+import Logger from '../Logger';
+import { MongoDBClient } from '../database/mongodb/DbClient';
+import MessageController from '../../interfaces/controllers/MessageController';
 
 class MessageRouter {
   private router: Router;

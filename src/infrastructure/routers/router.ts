@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
-import UserRouter from './user-router';
-import MessageRouter from './message-router';
+import UserRouter from './UserRouter';
+import MessageRouter from './MessageRouter';
 
 class MainRouter {
   private router: Router;

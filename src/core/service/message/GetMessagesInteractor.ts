@@ -1,8 +1,8 @@
-import { MessageUseCaseDto } from '../../../core/domain/message/usecase/dto/message-usecase-dto';
-import { MessageRepository } from '../../../core/domain/message/port/persistence/message-repository';
-import { GetMessagePort } from '../../../core/domain/message/port/usecase/get-message-port';
-import { GetMessagesUseCase } from '../../../core/domain/message/usecase/get-messages-usecase';
-import { Message } from '../../domain/message/entity/message';
+import { MessageUseCaseDto } from '../../domain/message/usecase/dto/MessageUseCaseDto';
+import { MessageRepository } from '../../domain/message/port/persistence/MessageRepository';
+import { GetMessagePort } from '../../domain/message/port/usecase/GetMessagePort';
+import { GetMessagesUseCase } from '../../domain/message/usecase/GetMessagesUseCase';
+import { Message } from '../../domain/message/entity/Message';
 
 class GetMessagesInteractor implements GetMessagesUseCase {
   private messageRepository: MessageRepository;

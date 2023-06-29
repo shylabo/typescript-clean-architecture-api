@@ -1,7 +1,7 @@
-import { Message } from '../../core/domain/message/entity/message';
-import { MessageRepository } from '../../core/domain/message/port/persistence/message-repository';
-import { NoSQLDatabaseClient } from './database/db_client';
-import { MessageMapper } from './mappers/message-mapper';
+import { Message } from '../../core/domain/message/entity/Message';
+import { MessageRepository } from '../../core/domain/message/port/persistence/MessageRepository';
+import { NoSQLDatabaseClient } from './database/DbClient';
+import { MessageMapper } from './mappers/MessageMapper';
 
 class MessageRepositoryImpl implements MessageRepository {
   private dbClient: NoSQLDatabaseClient;

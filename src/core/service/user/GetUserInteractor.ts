@@ -1,8 +1,8 @@
-import { UserUseCaseDto } from '../../domain/user/usecase/dto/user-usecase-dto';
-import { UserRepository } from '../../domain/user/port/persistence/user-repository';
-import { GetUserPort } from '../../domain/user/port/usecase/get-user-port';
-import { User } from '../../domain/user/entity/user';
-import { GetUserUseCase } from '../../../core/domain/user/usecase/get-user-usecase';
+import { UserUseCaseDto } from '../../domain/user/usecase/dto/UserUseCaseDto';
+import { UserRepository } from '../../domain/user/port/persistence/UserRepository';
+import { GetUserPort } from '../../domain/user/port/usecase/GetUserPort';
+import { User } from '../../domain/user/entity/User';
+import { GetUserUseCase } from '../../domain/user/usecase/GetUserUseCase';
 
 class GetUserInteractor implements GetUserUseCase {
   private userRepository: UserRepository;

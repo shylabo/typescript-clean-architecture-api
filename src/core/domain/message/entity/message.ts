@@ -1,6 +1,6 @@
-import { CreateMessageEntityPayload } from './type/create-message-entity-payload';
-import { Entity } from '../../../common/entity';
-import { Nullable } from '../../../common/type';
+import { CreateMessageEntityPayload } from './type/CreateMessageEntityPayload';
+import { Entity } from '../../../common/Entity';
+import { Nullable } from '../../../common/Type';
 
 export class Message extends Entity<string> {
   private conversationId?: string;

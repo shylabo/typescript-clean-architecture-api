@@ -8,81 +8,81 @@ It is my attempt to create Clean Architecture based application in Typescript.
 src
 ├── core
 │  ├── common
-│  │  ├── api-response.ts
-│  │  ├── entity.ts
-│  │  ├── exception.ts
-│  │  ├── status-codes.ts
-│  │  ├── type.ts
-│  │  └── usecase.ts
+│  │  ├── ApiResponse.ts
+│  │  ├── Entity.ts
+│  │  ├── Exception.ts
+│  │  ├── StatusCodes.ts
+│  │  ├── Type.ts
+│  │  └── Usecase.ts
 │  ├── domain
 │  │  ├── message
 │  │  │  ├── entity
-│  │  │  │  ├── message.ts
+│  │  │  │  ├── Message.ts
 │  │  │  │  └── type
-│  │  │  │     └── create-message-entity-payload.ts
+│  │  │  │     └── CreateMessageEntityPayload.ts
 │  │  │  ├── port
 │  │  │  │  ├── persistence
-│  │  │  │  │  └── message-repository.ts
+│  │  │  │  │  └── MessageRepository.ts
 │  │  │  │  └── usecase
-│  │  │  │     └── get-message-port.ts
+│  │  │  │     └── GetMessagePort.ts
 │  │  │  └── usecase
 │  │  │     ├── dto
-│  │  │     │  └── message-usecase-dto.ts
-│  │  │     └── get-messages-usecase.ts
+│  │  │     │  └── MessageUseCaseDto.ts
+│  │  │     └── GetMessagesUseCase.ts
 │  │  └── user
 │  │     ├── entity
 │  │     │  ├── type
-│  │     │  │  └── create-user-entity-payload.ts
-│  │     │  └── user.ts
+│  │     │  │  └── CreateUserEntityPayload.ts
+│  │     │  └── User.ts
 │  │     ├── port
 │  │     │  ├── persistence
-│  │     │  │  └── user-repository.ts
+│  │     │  │  └── UserRepository.ts
 │  │     │  └── usecase
-│  │     │     ├── create-user-port.ts
-│  │     │     └── get-user-port.ts
+│  │     │     ├── CreateUserPort.ts
+│  │     │     └── GetUserPort.ts
 │  │     └── usecase
-│  │        ├── create-user-usecase.ts
+│  │        ├── CreateUserUsecase.ts
 │  │        ├── dto
-│  │        │  └── user-usecase-dto.ts
-│  │        └── get-user-usecase.ts
+│  │        │  └── UserUseCaseDto.ts
+│  │        └── GetUserUseCase.ts
 │  └── service
 │     ├── message
-│     │  └── get-messages-interactor.ts
+│     │  └── GetMessagesInteractor.ts
 │     └── user
-│        ├── create-user-interactor.ts
-│        └── get-user-interactor.ts
+│        ├── CreateUserInteractor.ts
+│        └── GetUserInteractor.ts
 ├── infrastructure
 │  ├── config
-│  │  ├── api-server-config.ts
-│  │  └── database-config.ts
+│  │  ├── ApiServerConfig.ts
+│  │  └── DatabaseConfig.ts
 │  ├── database
 │  │  ├── mongodb
-│  │  │  └── db-client.ts
-│  │  ├── nosql-database-client.ts
+│  │  │  └── DbClient.ts
+│  │  ├── NosqlDatabaseClient.ts
 │  │  ├── postgresql
-│  │  │  └── db-client.ts
-│  │  └── sql-database-client.ts
-│  ├── logger.ts
+│  │  │  └── DbClient.ts
+│  │  └── SqlDatabaseClient.ts
+│  ├── Logger.ts
 │  ├── routers
-│  │  ├── message-router.ts
-│  │  ├── router.ts
-│  │  └── user-router.ts
-│  └── server.ts
+│  │  ├── MessageRouter.ts
+│  │  ├── Router.ts
+│  │  └── UserRouter.ts
+│  └── Server.ts
 ├── interfaces
 │  ├── adapters
 │  │  ├── CreateMessageAdapter.ts
 │  │  ├── CreateUserAdapter.ts
 │  │  └── GetUserAdapter.ts
 │  ├── controllers
-│  │  ├── message-controller.ts
-│  │  └── user-controller.ts
+│  │  ├── MessageController.ts
+│  │  └── UserController.ts
 │  └── gateways
 │     ├── database
-│     │  └── db_client.ts
+│     │  └── DbClient.ts
 │     ├── mappers
-│     │  ├── message-mapper.ts
-│     │  └── user-mapper.ts
-│     ├── message-repository.ts
-│     └── user-repository.ts
-└── main.ts
+│     │  ├── MessageMapper.ts
+│     │  └── UserMapper.ts
+│     ├── MessageRepository.ts
+│     └── UserRepository.ts
+└── Main.ts
 ```

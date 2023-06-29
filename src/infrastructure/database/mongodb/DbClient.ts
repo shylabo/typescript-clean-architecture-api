@@ -1,6 +1,6 @@
 import { Document, MongoClient, ObjectId, WithId } from 'mongodb';
-import { DatabaseConfig } from '../../config/database-config';
-import { NoSQLDatabaseClient } from '../nosql-database-client';
+import { DatabaseConfig } from '../../config/DatabaseConfig';
+import { NoSQLDatabaseClient } from '../NosqlDatabaseClient';
 
 export interface NoSQLDBClientConfig {
   host: string;

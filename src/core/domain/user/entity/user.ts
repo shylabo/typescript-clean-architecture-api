@@ -1,8 +1,8 @@
 import { genSalt, hash } from 'bcryptjs';
 
-import { CreateUserEntityPayload } from './type/create-user-entity-payload';
-import { Entity } from '../../../common/entity';
-import { Nullable } from '../../../common/type';
+import { CreateUserEntityPayload } from './type/CreateUserEntityPayload';
+import { Entity } from '../../../common/Entity';
+import { Nullable } from '../../../common/Type';
 
 export class User extends Entity<number> {
   private name: string;

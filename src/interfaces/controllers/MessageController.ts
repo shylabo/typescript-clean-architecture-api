@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { ApiResponse } from '../../core/common/api-response';
-import MessageRepositoryImpl from '../gateways/message-repository';
-import { NoSQLDatabaseClient } from '../gateways/database/db_client';
+import { ApiResponse } from '../../core/common/ApiResponse';
+import MessageRepositoryImpl from '../gateways/MessageRepository';
+import { NoSQLDatabaseClient } from '../gateways/database/DbClient';
 import { GetMessageAdapter } from '../adapters/CreateMessageAdapter';
-import GetMessagesInteractor from '../../core/service/message/get-messages-interactor';
-import { MessageUseCaseDto } from '../../core/domain/message/usecase/dto/message-usecase-dto';
-import { GetMessagesUseCase } from '../../core/domain/message/usecase/get-messages-usecase';
+import GetMessagesInteractor from '../../core/service/message/GetMessagesInteractor';
+import { MessageUseCaseDto } from '../../core/domain/message/usecase/dto/MessageUseCaseDto';
+import { GetMessagesUseCase } from '../../core/domain/message/usecase/GetMessagesUseCase';
 
 class MessageController {
   private messageRepository: MessageRepositoryImpl;
