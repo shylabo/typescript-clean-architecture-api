@@ -13,10 +13,10 @@ class UserRepositoryImpl implements UserRepository {
     this.dbClient = dbClient;
   }
 
-  async getUsers(): Promise<User[]> {
+  async getUserById(id: number): Promise<User> {
     try {
-      const dbResponse = await this.dbClient.executeQuery(`select * from ${DB_VIEW}`);
-      const result = UserMapper.toDomainEntities(dbResponse.rows);
+      const dbResponse = await this.dbClient.executeQuery(`select * from ${DB_VIEW} where id = $1`, [id]);
+      const result = UserMapper.toDomainEntity(dbResponse.rows[0]);
       return result;
     } catch (err: any) {
       throw new Error(`Error occurred: ${err.message}`);

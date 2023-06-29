@@ -2,7 +2,7 @@ import { MessageUseCaseDto } from './message-usecase-dto';
 import { MessageRepository } from './message-repository';
 import { GetMessagePort } from './get-message-port';
 
-class MessageInteractor {
+class GetMessagesInteractor {
   private messageRepository: MessageRepository;
 
   constructor(messageRepository: MessageRepository) {
@@ -16,4 +16,4 @@ class MessageInteractor {
   }
 }
 
-export default MessageInteractor;
+export default GetMessagesInteractor;

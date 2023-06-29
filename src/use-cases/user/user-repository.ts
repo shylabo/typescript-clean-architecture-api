@@ -1,5 +1,5 @@
 import { User } from '../../entities/user';
 export interface UserRepository {
-  getUsers(): Promise<User[]>;
+  getUserById(id: number): Promise<User>;
   createUser(user: User): Promise<User>;
 }

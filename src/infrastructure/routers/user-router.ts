@@ -15,7 +15,7 @@ class UserRouter {
       const dbClient = await TestDBClient.newFromConfig();
       const userController = new UserController(dbClient);
 
-      this.router.get('/', userController.getUsers);
+      this.router.get('/', userController.getUser);
       this.router.post('/', userController.createUser);
     } catch (err) {
       Logger.getInstance().error('Error occurred while initiating db:', err);

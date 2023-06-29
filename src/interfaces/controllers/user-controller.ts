@@ -1,29 +1,34 @@
 import { Request, Response } from 'express';
+
 import UserRepositoryImpl from '../gateways/user-repository';
 import { ApiResponse } from '../common/api/api-response';
-import UserInteractor from '../../use-cases/user/user-interactor';
-import { User } from '../../entities/user';
-import { StatusCodes } from '../../shared/status-codes';
 import { SQLDatabaseClient } from '../gateways/database/db_client';
-import Logger from '../../infrastructure/logger';
 import { CreateUserAdapter } from '../adapters/CreateUserAdapter';
+import { GetUserAdapter } from '../adapters/GetUserAdapter';
 import { UserUseCaseDto } from '../../use-cases/user/user-usecase-dto';
+import GetUserInteractor from '../../use-cases/user/get-user-interactor';
+import CreateUserInteractor from '../../use-cases/user/create-user-interactor';
 
 class UserController {
   private userRepository: UserRepositoryImpl;
-  private userInteractor: UserInteractor;
+  private getUserService: GetUserInteractor;
+  private createUserService: CreateUserInteractor;
 
   constructor(dbClient: SQLDatabaseClient) {
     this.userRepository = new UserRepositoryImpl(dbClient);
-    this.userInteractor = new UserInteractor(this.userRepository);
+    this.getUserService = new GetUserInteractor(this.userRepository);
+    this.createUserService = new CreateUserInteractor(this.userRepository);
 
-    this.getUsers = this.getUsers.bind(this);
+    this.getUser = this.getUser.bind(this);
     this.createUser = this.createUser.bind(this);
   }
 
-  async getUsers(req: Request, res: Response) {
-    const users = await this.userInteractor.getAll();
-    const response: ApiResponse<UserUseCaseDto[]> = ApiResponse.success(users);
+  async getUser(req: Request, res: Response) {
+    const adapter: GetUserAdapter = await GetUserAdapter.new({
+      id: parseInt(req.query.id as string, 10),
+    });
+    const user = await this.getUserService.getUserById(adapter);
+    const response: ApiResponse<UserUseCaseDto> = ApiResponse.success(user);
     res.json(response);
   }
 
@@ -33,7 +38,7 @@ class UserController {
       email: req.body.email,
       password: req.body.password,
     });
-    const createdUser: UserUseCaseDto = await this.userInteractor.createUser(adapter);
+    const createdUser: UserUseCaseDto = await this.createUserService.createUser(adapter);
     const response: ApiResponse<UserUseCaseDto> = ApiResponse.success(createdUser);
     res.json(response);
   }
