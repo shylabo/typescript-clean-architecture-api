@@ -1,9 +1,15 @@
-# typescript-clean-architecture-api
-
-It is my attempt to create Clean Architecture based application in Typescript.
+# 【WIP】typescript-clean-architecture-api
 
 ![TypeScript-clean-architecture-api](https://github.com/shylabo/typescript-clean-architecture-api/assets/41677855/959d1b24-aee8-4547-91a7-5061342af258)
 
+# TODO (So many todos are left...)
+- Implement presenter(ViewModel)
+- validation for input
+- test (both unit and e2e)
+- Introduce OpenAPI document(Swagger)
+- Introduce Redis for cache
+- Introduce ORM to handle queries
+etc...
 
 # About this project (Private Chat API with Clean Architecture)
 
